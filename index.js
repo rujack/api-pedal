@@ -15,12 +15,14 @@ route.get("/", (_, res, next) => {
     .send(
       "<pre>API Route <br/> <br/>GET : /lagu => Lagu Daerah<br/>GET : /cerita_rakyat => Cerita Rakyat</pre>",
     );
+  next();
 });
 
 route.get("/lagu", async(_, res, next) => {
   const data = await fs.readFile(laguDaerah, "utf-8");
   const lagu = JSON.parse(data);
   res.status(200).send(lagu);
+  next();
 });
 
 app.use((req, res, next) => {

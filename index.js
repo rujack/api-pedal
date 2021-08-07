@@ -1,6 +1,7 @@
 const express = require("express");
-const fs = require('fs').promises
+const fs = require("fs").promises;
 const path = require("path");
+let port = process.env.PORT || 3000;
 
 const laguDaerah = path.join(__dirname, "data", "lagu_daerah.json");
 
@@ -15,19 +16,21 @@ route.get("/", (_, res, next) => {
     .send(
       "<pre>API Route <br/> <br/>GET : /lagu => Lagu Daerah<br/>GET : /cerita_rakyat => Cerita Rakyat</pre>",
     );
+  next();
 });
 
-route.get("/lagu", async(_, res, next) => {
+route.get("/lagu", async (_, res, next) => {
   const data = await fs.readFile(laguDaerah, "utf-8");
   const lagu = JSON.parse(data);
   res.status(200).send(lagu);
+  next();
 });
 
 app.use((req, res, next) => {
-  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append("Access-Control-Allow-Origin", ["*"]);
   res.append("Access-Control-Allow-Methods", "GET");
   res.append("Access-Control-Allow-Headers", "Content-Type,Authorization");
   next();
 });
 
-app.listen(3000, () => console.log("Connection berhasil"));
+app.listen(port, () => console.log(`Connection berhasil http://localhost:${port}`));

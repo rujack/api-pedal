@@ -6,7 +6,7 @@ const cheerio = require("cheerio");
 const htmlToText = require("html-to-text");
 const http = require("http")
 
-let port = process.env.PORT || 3000;
+let PORT = process.env.PORT || 3001;
 
 const laguDaerah = path.join(__dirname, "data", "lagu_daerah.json");
 const ceritaRakyat = path.join(__dirname, "data", "isicerpen.json");
@@ -181,6 +181,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(port, () =>
+app.listen(PORT, () =>
   console.log(`Connection berhasil http://localhost:${port}`),
 );
